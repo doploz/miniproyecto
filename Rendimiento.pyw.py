@@ -1,7 +1,7 @@
 import psutil
 import tkinter as tk
 from tkinter import messagebox
-
+from bd2 import insert_monitoring_data
 
 class MONITOR:
     def __init__(self, master):
@@ -53,6 +53,7 @@ class MONITOR:
     
     def guardar(self):
         messagebox.showinfo("Guardar", "Datos guardados correctamente")
+        insert_monitoring_data()
    
     
 
