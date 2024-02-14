@@ -54,7 +54,6 @@ class MONITOR:
     def guardar(self):
         messagebox.showinfo("Guardar", "Datos guardados correctamente")
         insert_monitoring_data()
-   
     
 
 if __name__ == "__main__":
