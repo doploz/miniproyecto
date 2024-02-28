@@ -40,6 +40,6 @@ Por favor, sigue estas pautas al contribuir:
 
 ## Autor
 
-- [Tu nombre](https://github.com/doploz) - Desarrollador principal
+- [doploz](https://github.com/doploz) - Desarrollador principal
 
 
