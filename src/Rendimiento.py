@@ -11,15 +11,18 @@ class MONITOR:
          
         self.boton_guardar = tk.Button(self.master, text="Guardar", command=self.guardar)
         self.boton_guardar.pack(side=tk.BOTTOM, pady=10)
-
+            
         self.usage = tk.StringVar()
         self.memory = tk.StringVar()
         self.storage = tk.StringVar()
+        self.swap = tk.StringVar()  # Agregamos una nueva variable de cadena para mostrar información de paginación
+        
         self.update_cpu_usage()
         self.update_memory_usage()
         self.update_storage_usage()
+        self.update_swap_memory()  # Llamamos a la función para actualizar la información de paginación
         
-        self.label_usage = tk.Label(master, fg="white", background="black",textvariable=self.usage)
+        self.label_usage = tk.Label(master, fg="white", background="black", textvariable=self.usage)
         self.label_usage.pack(pady=10)
         
         self.label_memory = tk.Label(master, fg="white", background="black", textvariable=self.memory)
@@ -27,6 +30,9 @@ class MONITOR:
         
         self.label_storage = tk.Label(master, fg="white", background="black", textvariable=self.storage)
         self.label_storage.pack(pady=10)
+        
+        self.label_swap = tk.Label(master, fg="white", background="black", textvariable=self.swap)
+        self.label_swap.pack(pady=10)
     
     def update_cpu_usage(self):
         usage = psutil.cpu_percent()
@@ -51,6 +57,14 @@ class MONITOR:
         self.storage.set(f'Almacenamiento:\nTotal: {total:.2f} GB\nUsado: {used:.2f} GB\nLibre: {free:.2f} GB')
         self.master.after(1000, self.update_storage_usage)
     
+    def update_swap_memory(self):  # Función para obtener y mostrar información de paginación
+        swap = psutil.swap_memory()
+        total = swap.total / (1024 ** 3)
+        used = swap.used / (1024 ** 3)
+        free = swap.free / (1024 ** 3)
+        self.swap.set(f'Memoria Swap (Paginación):\nTotal: {total:.2f} GB\nUsado: {used:.2f} GB\nLibre: {free:.2f} GB')
+        self.master.after(1000, self.update_swap_memory)
+    
     def guardar(self):
         messagebox.showinfo("Guardar", "Datos guardados correctamente")
         insert_monitoring_data()
@@ -58,6 +72,6 @@ class MONITOR:
 
 if __name__ == "__main__":
     ventana = tk.Tk()
-    ventana.geometry("100x275")
+    ventana.geometry("200x400")  # Aumenté el tamaño de la ventana para dar cabida a la información adicional
     monitor = MONITOR(ventana)
     ventana.mainloop()
